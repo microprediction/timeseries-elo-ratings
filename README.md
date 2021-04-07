@@ -5,3 +5,5 @@ Elo ratings for time-series forecasting packages
 * [json leaderboards](https://github.com/microprediction/timeseries-elo-ratings/tree/main/leaderboards_json)
 
 Uses the [TimeMachines](https://github.com/microprediction/timemachines) package.
+
+![](https://i.imgur.com/PB1c2w6.png)
