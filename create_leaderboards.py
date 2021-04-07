@@ -4,21 +4,21 @@ from pprint import pprint
 
 
 THIS_PATH = os.path.dirname(os.path.realpath(__file__))
-OPTIMIZER_ELO_PATH = THIS_PATH + os.path.sep + 'results'
+ELO_PATH = THIS_PATH + os.path.sep + 'results'
 
 
 def load_all_games():
     def load_json(file):
-        with open(os.path.join(OPTIMIZER_ELO_PATH, file), "r") as f:
+        with open(os.path.join(ELO_PATH, file), "r") as f:
             ret = json.load(f)
         return ret
 
     games = list()
     i = 0
     leaderboard_jsons = dict(
-        (file, load_json(file)) for file in os.listdir(OPTIMIZER_ELO_PATH) if os.path.isfile(
-            os.path.join(OPTIMIZER_ELO_PATH, file)
-        ) and os.path.join(OPTIMIZER_ELO_PATH, file).endswith(".json")
+        (file, load_json(file)) for file in os.listdir(ELO_PATH) if os.path.isfile(
+            os.path.join(ELO_PATH, file)
+        ) and os.path.join(ELO_PATH, file).endswith(".json")
     )
     return leaderboard_jsons               # "name" and "rating" keys are important
 
@@ -44,7 +44,7 @@ def get_overall_html_str(file, data, navbar):
 <body>
     <div class="left">{navbar}</div>
     <div class="right">
-        <h1>Overall Optimizer Elo Leaderboard for {file}</h1>
+        <h1>Overall Elo Leaderboard for {file}</h1>
         <table class="default-table">
             {get_html_table_rows(data)}
         </table>
@@ -63,11 +63,8 @@ def get_html_str(file, data, navbar):
 <body>
     <div class="left">{navbar}</div>
     <div class="right">
-        <h1>Optimizer Elo Ratings</h1>
-        Produced by <a href="https://github.com/microprediction/optimizer-elo-ratings">optimizer-elo-ratings</a> 
-        <h3>Class of objective functions: {args[0]}</h3>
-        <h3>Dimension {args[1][1:]}</h3>
-        <h3>Function evaluation limit: {args[2][1:]}</h3>
+        <h1>Forecasting Elo Ratings</h1>
+        Produced by <a href="https://github.com/microprediction/timeseries-elo-ratings">timeseries-elo-ratings</a> 
         <table class="default-table">
             {get_html_table_rows(data)}
         </table>
