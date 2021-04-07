@@ -4,7 +4,7 @@ from pprint import pprint
 
 
 THIS_PATH = os.path.dirname(os.path.realpath(__file__))
-ELO_PATH = THIS_PATH + os.path.sep + 'results'
+ELO_PATH = THIS_PATH + os.path.sep + 'ratings'
 
 
 def load_all_games():
