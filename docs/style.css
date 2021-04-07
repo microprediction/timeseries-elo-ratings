@@ -1,0 +1,53 @@
+:root {
+  --theme-green: #00A176;
+}
+
+.left {
+  position: absolute;
+  top: 0;
+  left: 20px;
+  width: 200px;
+}
+.left a {
+  display: block;
+}
+.right {
+  position: absolute;
+  margin-left: 200px;
+}
+
+.default-table {
+  color: black;
+  text-align: center;
+  border-spacing: 0;
+  border-collapse: collapse;
+}
+.default-table tr:first-child {
+  background-color: var(--theme-green);
+}
+.default-table tr:first-child th {
+  color: #FFF;
+}
+.default-table tr {
+  background-color: white;
+}
+.default-table tr:nth-child(2) > td {
+  border-top-width: 0;
+}
+.default-table th, .default-table td {
+  margin: 0;
+  padding: 0.5em 1.5em;
+  text-align: center;
+  border-width: 1px 0;
+  border-color: var(--theme-green);
+  border-style: solid;
+}
+.default-table th {
+  border-bottom-width: 4px;
+  border: none;
+}
+.default-table td:nth-child(n+2) {
+  border-left-width: 4px;
+  border-color: var(--theme-green);
+  border-style: solid;
+}
