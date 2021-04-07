@@ -36,6 +36,10 @@ jobs:
       - name: update elo ratings and test skaters
         run: |
           python update_skater_elo_ratings.py
+          
+      - name: update html leaderboards
+        run: | 
+          python create_leaderboards.py
    
       - name: Show git status
         run: | 
