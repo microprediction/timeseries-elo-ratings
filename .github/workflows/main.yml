@@ -3,9 +3,6 @@ name: timeseries-elo-ratings
 on:
   schedule:
     - cron:  '47 * * * *'
-  push:
-    branches:
-      - main
 
 defaults:
   run:
