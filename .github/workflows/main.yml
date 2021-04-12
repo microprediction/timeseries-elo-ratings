@@ -29,8 +29,8 @@ jobs:
             pip install wheel
             pip install microprediction
             pip install timemachines
-            pip install prophet
-            pip install neuralprophet
+            pip install --upgrade prophet
+            pip install --upgrade neuralprophet
             
       - name: update elo ratings and test skaters
         run: |
