@@ -63,8 +63,23 @@ def get_html_str(file, data, navbar):
 <body>
     <div class="left">{navbar}</div>
     <div class="right">
-        <h1>Forecasting Elo Ratings</h1>
-        Produced by <a href="https://github.com/microprediction/timeseries-elo-ratings">timeseries-elo-ratings</a> 
+        <h1>Time-Series Elo Ratings</h1>
+Produced by <a href="https://github.com/microprediction/timeseries-elo-ratings">timeseries-elo-ratings</a> and 
+based on k-step ahead prediction duels using <a href="https://www.microprediction.org/browse_streams.html">live time series data</a>, 
+<p>
+Algorithms here can be found in the <a href="https://github.com/microprediction/timemachines">TimeMachines</a> Python package, and these in turn draw
+on a subset of functionality from <a href="https://www.microprediction.com/blog/popular-timeseries-packages">popular Python time-series packages</a>. Examples
+include Facebook Prophet, Statsmodels TSA, Flux, PmdArima and <a href="https://github.com/microprediction/timemachines">more</a>. If you have a suggestion
+please file a <a href="https://github.com/microprediction/timemachines/issues">issue<a/> or, even better, add a 
+<a href="https://github.com/microprediction/timemachines/tree/main/timemachines/skaters">skater</a> and make a pull request. 
+        <p>
+  Wins and losses are based on RMSE with 400 training points and 50 out of sample predictions. Residual streams use data from probability integral 
+transforms, as explained in <a href="https://www.linkedin.com/pulse/short-introduction-z-streams-peter-cotton-phd/">An Introduction to Z-Streams</a>. Models
+high up on the residual leaderboards might be worth tacking on after you've already applied your favourite model. 
+<p>
+Some algorithms are deployed to predict live data. See the <a href="https://github.com/microprediction/microprediction/tree/master/crawler_examples">example crawlers</a>. 
+Further motivation for the project is explained at <a href="https://www.microprediction.com/">microprediction.com</a>. 
+        <p>
         <table class="default-table">
             {get_html_table_rows(data)}
         </table>

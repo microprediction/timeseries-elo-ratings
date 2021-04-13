@@ -1,8 +1,8 @@
-name: timeseries-elo-ratings
+name: timeseries-elo-ratings-fast
 
 on:
   schedule:
-    - cron:  '47 * * * *'
+    - cron:  '23 * * * *'
 
 defaults:
   run:
@@ -29,7 +29,6 @@ jobs:
             pip install wheel
             pip install microprediction
             pip install --upgrade timemachines
-            pip install --upgrade prophet
             pip install --upgrade neuralprophet
             
       - name: update elo ratings and test skaters

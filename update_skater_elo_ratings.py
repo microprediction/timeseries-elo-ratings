@@ -6,19 +6,50 @@ import os
 import random
 import time
 
+
 CAN_BLOW_AWAY = False
 
 
+ELIMINATE = ['constant_skater']
+AVOID_KEYS = ['evaluator']
+
+
+def ensure_ratings_are_clean(d, index_key='name', avoid_keys=None):
+    """ Eliminate duplicate entries, and cleans out crud """
+    if avoid_keys is None:
+        avoid_keys = AVOID_KEYS
+    kys = d.keys()
+    unique_kys = set()
+    valid = list()
+    from copy import deepcopy
+    d_copy = deepcopy(d)
+    for j,ky in enumerate(d[index_key]):
+        if ky not in unique_kys and not any([ elim in ky for elim in ELIMINATE]):
+            valid.append(j)
+            unique_kys.add(ky)
+    for ky in kys:
+        if ky not in avoid_keys:
+            try:
+                d[ky] = [d_copy[ky][v] for v in valid]
+            except IndexError:
+                pass
+                raise ValueError('Ratings were corrupted, somehow')
+    return d
+
+
+
+
 def update_skater_elo_ratings_for_five_minutes():
-    st = time.time
+    st = time.time()
     while time.time()-st<8*60:
-        update_skater_elo_ratings_once(category='univariate-k_',data_source=random_regular_data)
         update_skater_elo_ratings_once(category='residual-k_',data_source=random_residual_data)
+        update_skater_elo_ratings_once(category='univariate-k_', data_source=random_regular_data)
 
 
 def update_skater_elo_ratings_once(category='univariate-k_',data_source=random_regular_data):
     k = random.choice([1,2,3,5,8,13,21,34])
-    ELO_PATH = os.path.dirname(os.path.realpath(__file__))+os.path.sep+'skater_elo_ratings'
+    ELO_PATH = os.path.dirname(os.path.realpath(__file__))+os.path.sep+'ratings'
+    LEADERBOARD_PATH = os.path.dirname(os.path.realpath(__file__)) + os.path.sep + 'leaderboards_json'
 
     try:
         os.makedirs(ELO_PATH)
@@ -36,16 +67,20 @@ def update_skater_elo_ratings_once(category='univariate-k_',data_source=random_r
         else:
             raise RuntimeError()
 
+    # Dedup
+    elo = ensure_ratings_are_clean(elo, index_key='name')
+
     # Update elo skater_elo_ratings
     elo = skater_elo_update(elo=elo,k=k,data_source=data_source)
-    pprint(sorted(list(zip(elo['rating'],elo['name']))))
+    if False:
+        pprint(sorted(list(zip(elo['rating'],elo['name']))))
 
     # Try to save
     with open(ELO_FILE, 'wt') as fp:
         json.dump(elo,fp)
 
     # Write individual files so that the directory serves as a leaderboard
-    LEADERBOARD_DIR = ELO_PATH + os.path.sep + 'leaderboards'+os.path.sep+category+ str(k).zfill(3)
+    LEADERBOARD_DIR = LEADERBOARD_PATH +os.path.sep+category+ str(k).zfill(3)
     try:
         os.makedirs(LEADERBOARD_DIR)
     except FileExistsError:
@@ -78,4 +113,11 @@ def update_skater_elo_ratings_once(category='univariate-k_',data_source=random_r
 
 
 if __name__=='__main__':
-    update_skater_elo_ratings_for_five_minutes()
+    if False:
+        d = {'name':['bill','mary','bill'],
+             'age':[17,32,71]}
+        d1 = dedup(d)
+        from pprint import pprint
+        pprint(d1)
+    while True:
+        update_skater_elo_ratings_for_five_minutes()
