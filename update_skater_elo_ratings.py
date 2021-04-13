@@ -1,4 +1,5 @@
 from timemachines.skatertools.comparison.skaterelo import skater_elo_update
+from timemachines.skatertools.data.live import random_regular_data, random_residual_data
 from pprint import pprint
 import json
 import os
@@ -9,22 +10,21 @@ CAN_BLOW_AWAY = False
 
 
 def update_skater_elo_ratings_for_five_minutes():
-    st = time.time()
-    while time.time()-st<5*60:
-        update_skater_elo_ratings_once()
+    st = time.time
+    while time.time()-st<8*60:
+        update_skater_elo_ratings_once(category='univariate-k_',data_source=random_regular_data)
+        update_skater_elo_ratings_once(category='residual-k_',data_source=random_residual_data)
 
 
-
-def update_skater_elo_ratings_once():
+def update_skater_elo_ratings_once(category='univariate-k_',data_source=random_regular_data):
     k = random.choice([1,2,3,5,8,13,21,34])
-    ELO_PATH = os.path.dirname(os.path.realpath(__file__))+os.path.sep+'ratings'
-    LEADERBOARD_PATH = os.path.dirname(os.path.realpath(__file__))+os.path.sep+'leaderboards_json'
+    ELO_PATH = os.path.dirname(os.path.realpath(__file__))+os.path.sep+'skater_elo_ratings'
 
     try:
         os.makedirs(ELO_PATH)
     except FileExistsError:
         pass
-    ELO_FILE = ELO_PATH + os.path.sep + 'univariate-k_'+str(k).zfill(3)+'.json'
+    ELO_FILE = ELO_PATH + os.path.sep + category+str(k).zfill(3)+'.json'
 
     # Try to resume
     try:
@@ -37,7 +37,7 @@ def update_skater_elo_ratings_once():
             raise RuntimeError()
 
     # Update elo skater_elo_ratings
-    elo = skater_elo_update(elo=elo,k=k)
+    elo = skater_elo_update(elo=elo,k=k,data_source=data_source)
     pprint(sorted(list(zip(elo['rating'],elo['name']))))
 
     # Try to save
@@ -45,7 +45,7 @@ def update_skater_elo_ratings_once():
         json.dump(elo,fp)
 
     # Write individual files so that the directory serves as a leaderboard
-    LEADERBOARD_DIR = LEADERBOARD_PATH + os.path.sep+'univariate_'+ str(k).zfill(3)
+    LEADERBOARD_DIR = ELO_PATH + os.path.sep + 'leaderboards'+os.path.sep+category+ str(k).zfill(3)
     try:
         os.makedirs(LEADERBOARD_DIR)
     except FileExistsError:
