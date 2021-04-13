@@ -2,7 +2,7 @@ name: timeseries-elo-ratings
 
 on:
   schedule:
-    - cron:  '47 * * * *'
+    - cron:  '47 * 1 * *'
 
 defaults:
   run:
