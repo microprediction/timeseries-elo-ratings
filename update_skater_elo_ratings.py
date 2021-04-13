@@ -10,7 +10,7 @@ CAN_BLOW_AWAY = False
 
 def update_skater_elo_ratings_for_five_minutes():
     st = time.time()
-    while time.time()-st<5*60:
+    while time.time()-st<8*60:
         update_skater_elo_ratings_once()
 
 
