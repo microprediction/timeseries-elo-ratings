@@ -28,6 +28,7 @@ jobs:
             python -m pip install --upgrade pip
             pip install wheel
             pip install microprediction
+            pip install humpday
             pip install --upgrade timemachines
             pip install --upgrade neuralprophet
             
