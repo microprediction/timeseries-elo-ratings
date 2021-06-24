@@ -47,7 +47,7 @@ def update_skater_elo_ratings_for_five_minutes():
         category = random.choice(['residual-k_','univariate-k_'])
         update_skater_elo_ratings_once(category=category,data_source=random_residual_data)
         elapsed = time.time()-the_start_time
-        print('Elapsed= '+elapsed)
+        print('Elapsed= '+str(elapsed))
     print('Done updating Elo ratings')   
 
 
