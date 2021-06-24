@@ -2,7 +2,7 @@ name: timeseries-elo-ratings-minimal
 
 on:
   schedule:
-    - cron:  '21 * 1 * *'
+    - cron:  '51 */3 * * *'
 
 defaults:
   run:
