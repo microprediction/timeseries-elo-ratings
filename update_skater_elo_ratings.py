@@ -73,7 +73,7 @@ def update_skater_elo_ratings_once(category='univariate-k_',data_source=random_r
 
     # Update elo skater_elo_ratings
     elo = skater_elo_update(elo=elo,k=k,data_source=data_source)
-    if False:
+    if True:
         pprint(sorted(list(zip(elo['rating'],elo['name']))))
 
     # Try to save
