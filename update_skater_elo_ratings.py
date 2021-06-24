@@ -41,7 +41,7 @@ def ensure_ratings_are_clean(d, index_key='name', avoid_keys=None):
 
 def update_skater_elo_ratings_for_five_minutes():
     st = time.time()
-    while time.time()-st<8*60:
+    while time.time()-st<5*60:
         update_skater_elo_ratings_once(category='residual-k_',data_source=random_residual_data)
         update_skater_elo_ratings_once(category='univariate-k_', data_source=random_regular_data)
 
