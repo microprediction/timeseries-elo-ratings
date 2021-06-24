@@ -42,7 +42,7 @@ def ensure_ratings_are_clean(d, index_key='name', avoid_keys=None):
 def update_skater_elo_ratings_for_five_minutes():
     the_start_time = time.time()
     elapsed = 0
-    while elapsed<2*60:
+    while elapsed<5*60:
         import random
         category = random.choice(['residual-k_','univariate-k_'])
         update_skater_elo_ratings_once(category=category,data_source=random_residual_data)
@@ -119,11 +119,4 @@ def update_skater_elo_ratings_once(category='univariate-k_',data_source=random_r
 
 
 if __name__=='__main__':
-    if False:
-        d = {'name':['bill','mary','bill'],
-             'age':[17,32,71]}
-        d1 = dedup(d)
-        from pprint import pprint
-        pprint(d1)
-    while True:
-        update_skater_elo_ratings_for_five_minutes()
+       update_skater_elo_ratings_for_five_minutes()
