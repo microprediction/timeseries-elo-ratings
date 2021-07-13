@@ -42,12 +42,15 @@ def ensure_ratings_are_clean(d, index_key='name', avoid_keys=None):
 def update_skater_elo_ratings_for_five_minutes():
     the_start_time = time.time()
     elapsed = 0
-    while elapsed<1*60:
+    count = 0
+    while elapsed<1*60 and count<3:
         import random
         category = random.choice(['residual-k_','univariate-k_'])
         update_skater_elo_ratings_once(category=category,data_source=random_residual_data)
         elapsed = time.time()-the_start_time
         print('Elapsed= '+str(elapsed))
+        count += 1
+        
     print('Done updating Elo ratings')   
 
 
