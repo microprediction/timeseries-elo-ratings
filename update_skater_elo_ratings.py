@@ -10,6 +10,7 @@ import time
 CAN_BLOW_AWAY = False
 
 
+
 ELIMINATE = ['constant_skater']
 AVOID_KEYS = ['evaluator']
 
