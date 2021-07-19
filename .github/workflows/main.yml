@@ -31,6 +31,7 @@ jobs:
             pip install --upgrade timemachines
             pip install --upgrade prophet
             pip install --upgrade neuralprophet
+            pip install --ugprade orbit
             
       - name: update elo ratings and test skaters
         run: |
