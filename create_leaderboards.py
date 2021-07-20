@@ -64,19 +64,21 @@ def get_html_str(file, data, navbar):
 <body>
     <div class="left">{navbar}</div>
     <div class="right">
-        <h1>Ongoing Performance Comparison of Python Univariate Time-Series Forecasting Packages</h1>
-Ratings are produced by <a href="https://github.com/microprediction/timeseries-elo-ratings">timeseries-elo-ratings</a> and 
+        <h1>Accuracy of Python Time-Series Forecasting Packages</h1>
+The Elo Ratings in this table are produced transparently by <a href="https://github.com/microprediction/timeseries-elo-ratings">timeseries-elo-ratings</a> and 
 based on k-step ahead prediction duels using <a href="https://www.microprediction.org/browse_streams.html">live time series data</a> taken from 
-<a href="www.microprediction.com">www.microprediction.com</a>. 
+<a href="www.microprediction.com">www.microprediction.com</a>. Since there are many ways to use
+those packages the title is somewhat misleading, even if we have included algorithms with factory default settings from packages claiming that little or no user estimation
+should be required. 
 <p>
-All algorithms shown here can be found in the <a href="https://github.com/microprediction/timemachines">TimeMachines</a> Python package. However, as indicated
+All algorithms utilized here can be found in the <a href="https://github.com/microprediction/timemachines">TimeMachines</a> Python package. However, as indicated
 in the table, some of
 these draw an important part of their functionality (if not all) from other packages such as Facebook Prophet, Statsmodels TSA, Flux, PmdArima, Uber Orbit and <a href="https://github.com/microprediction/timemachines/tree/main/timemachines/skaters">more</a>. If you have a suggestion
 please file a <a href="https://github.com/microprediction/timemachines/issues">issue<a/> or, even better, add a 
 <a href="https://github.com/microprediction/timemachines/tree/main/timemachines/skaters">skater</a> and make a pull request. There is 
 a <a href="https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md">guide for contributors</a> willing to make autonomous univariate
 time series prediction functions, and lots of suggestions in 
-the listing of <a href="https://www.microprediction.com/blog/popular-timeseries-packages">popular time-series packages</a>.  
+the listing of <a href="https://www.microprediction.com/blog/popular-timeseries-packages">popular time-series packages</a>. 
         <p>
 Wins and losses (and the occasional draw) are based on RMSE using 50 data points. Prior to that 400 data points are provided to warm up the models. The table
 named <a href="https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_002.html">univariate-k_002</a> refers to 2-step ahead prediction, 
