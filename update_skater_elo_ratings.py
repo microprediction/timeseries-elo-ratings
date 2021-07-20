@@ -6,7 +6,6 @@ import os
 import random
 import time
 
-
 CAN_BLOW_AWAY = False
 
 
