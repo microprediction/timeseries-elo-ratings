@@ -16,8 +16,10 @@ please file a <a href="https://github.com/microprediction/timemachines/issues">i
 a <a href="https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md">guide for contributors</a> willing to make autonomous univariate
 time series prediction functions. 
         <p>
-Wins and losses and the occasional draw are based on RMSE with 400 training points and 50 out of sample predictions. Residual streams use data from probability integral 
-transforms (as explained in <a href="https://www.linkedin.com/pulse/short-introduction-z-streams-peter-cotton-phd/">An Introduction to Z-Streams</a>). 
+Wins and losses (and the occasional draw) are based on RMSE using 50 data points. Prior to that 400 data points are provided to warm up the models. The table
+named <a href="https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_002.html">univariate-k_002</a> refers to 2-step ahead prediction, 
+and so forth. Residual leaderboards use streams of data that represent the residuals of competitive community prediction
+(as explained in <a href="https://www.linkedin.com/pulse/short-introduction-z-streams-peter-cotton-phd/">An Introduction to Z-Streams</a>). 
 <p>
 Some of these methods are used in real-time to predict live data. That live data can in turn be published by anyone. See the <a href="https://github.com/microprediction/microprediction/tree/master/crawler_examples">example crawlers</a> folder
 for examples of live algorithms. See the <a href="https://www.microprediction.com/knowledge-center">knowledge center</a> or <a href="https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md">contributor guide</a> for instructions
