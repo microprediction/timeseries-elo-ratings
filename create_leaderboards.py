@@ -26,7 +26,8 @@ def load_all_games():
 def get_html_table_rows(data):
     data_dict = {}
     for name, rating, count, active, pypi, scnds in zip(data["name"], data["rating"], data["count"], data["active"], data["pypi"], data['seconds']):
-        data_dict[name] = (rating,count, active, pypi, scnds )
+        pypi_url = '<a href="'+pypi+'">"+pypi+'</a>'
+        data_dict[name] = (rating,count, active, pypi_url, scnds )
 
     data_dict = dict(sorted(data_dict.items(), key=lambda item: item[1], reverse=True))
 
