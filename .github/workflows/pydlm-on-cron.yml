@@ -1,4 +1,4 @@
-name: divinity-on-cron
+name: pydlm-on-cron
 
 on:
   schedule:
