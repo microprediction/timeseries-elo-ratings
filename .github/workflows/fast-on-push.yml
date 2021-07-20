@@ -1,4 +1,4 @@
-name: timeseries-elo-ratings-fast
+name: elo-fast-against-latest-push
 
 on:
   # Triggers the workflow on push or pull request events but only for the main branch
@@ -31,7 +31,7 @@ jobs:
             python -m pip install --upgrade pip
             pip install wheel
             pip install microprediction
-            pip install --upgrade timemachines
+            pip install --upgrade git+https://github.com/microprediction/timemachines.git
             
       - name: update elo ratings and test skaters
         run: |
