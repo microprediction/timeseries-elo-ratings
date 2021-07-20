@@ -1,4 +1,4 @@
-name: timeseries-elo-ratings-fast
+name: timeseries-elo-ratings-against-latest
 
 on:
   schedule:
