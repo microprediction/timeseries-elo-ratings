@@ -27,7 +27,7 @@ def get_html_table_rows(data):
     data_dict = {}
     for name, rating, count, active, pypi, scnds in zip(data["name"], data["rating"], data["count"], data["active"], data["pypi"], data['seconds']):
         pypi_name = pypi.split('/project/')[-1]
-        pypi_url = '<a href="'+pypi+'">'+pypy_name+'</a>'
+        pypi_url = '<a href="'+pypi+'">' + pypi_name + '</a>'
         tm_url = '<a href="https://github.com/microprediction/timemachines">timemachines</a>'
         if 'timemachines' not in pypi_url:
             pypi_url = pypi_url + ' , '+tm_url
@@ -35,7 +35,7 @@ def get_html_table_rows(data):
 
     data_dict = dict(sorted(data_dict.items(), key=lambda item: item[1], reverse=True))
 
-    html = "<tr><th>Name</th><th>Rating</th><th>Games</th><th>Active</th><th>Seconds</th><th>Dependency</th> </tr>"
+    html = "<tr><th>Name</th><th>Rating</th><th>Games</th><th>Active</th><th>Seconds</th><th>Dependencies</th> </tr>"
     for name, (rating,count,active,pypi,scnds) in data_dict.items():
         active_str = 'yes' if active else 'no'
         html += f"<tr><td>{name.replace('_cube','')}</td><td>{round(rating, 0)}</td><td>{round(count, 0)}</td><td>{active_str}</td><td>{round(10*scnds)/10}</td><td>{pypi}</td></tr>"
