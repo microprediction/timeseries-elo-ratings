@@ -137,3 +137,4 @@ if __name__ == '__main__':
                     f.write(get_overall_html_str(file, data, navbar))
                 else:
                     f.write(get_html_str(file, data, navbar))
+
