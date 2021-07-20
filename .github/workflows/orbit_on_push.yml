@@ -32,7 +32,7 @@ jobs:
             pip install wheel
             pip install microprediction
             pip install --upgrade orbit
-            pip install --upgrade timemachines
+            pip install --upgrade git+https://github.com/microprediction/timemachines.git
             
       - name: update elo ratings and test skaters
         run: |
