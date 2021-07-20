@@ -1,5 +1,9 @@
 from timemachines.skatertools.comparison.skaterelo import skater_elo_update
-from timemachines.skatertools.data.live import random_regular_data, random_residual_data
+try:
+    from timemachines.skatertools.data.live import random_regular_data, random_residual_data
+except ImportError:
+    raise('pip install microprediction')
+
 from pprint import pprint
 import json
 import os
@@ -39,16 +43,17 @@ def ensure_ratings_are_clean(d, index_key='name', avoid_keys=None):
 
 
 
-def update_skater_elo_ratings_for_five_minutes():
+def update_skater_elo_ratings_for_five_minutes(max_min=5, max_count=10):
     the_start_time = time.time()
     elapsed = 0
     count = 0
-    while elapsed<1*60 and count<10:
+    while elapsed<max_min*60 and count<max_count:
         import random
         category = random.choice(['residual-k_','univariate-k_'])
         update_skater_elo_ratings_once(category=category,data_source=random_residual_data)
         elapsed = time.time()-the_start_time
-        print('Elapsed= '+str(elapsed))
+        if False:
+            print('Elapsed= '+str(elapsed))
         count += 1
         
     print('Done updating Elo ratings')   
@@ -80,7 +85,7 @@ def update_skater_elo_ratings_once(category='univariate-k_',data_source=random_r
 
     # Update elo skater_elo_ratings
     elo = skater_elo_update(elo=elo,k=k,data_source=data_source)
-    if True:
+    if False:
         pprint(sorted(list(zip(elo['rating'],elo['name'])))[-3:])
     print('',flush=True)
 
@@ -118,5 +123,14 @@ def update_skater_elo_ratings_once(category='univariate-k_',data_source=random_r
             json.dump(obj={'name':name,'pypi':pypi,'seconds':scnds,'traceback':traceback,'rating':rating}, fp=fp)
 
 
+def running_locally():
+    import sys
+    print(sys.platform)
+    return 'darwin' in sys.platform
+
+
 if __name__=='__main__':
-       update_skater_elo_ratings_for_five_minutes()
+    if running_locally():
+       update_skater_elo_ratings_for_five_minutes(max_min=10000, max_count=10000000)
+    else:
+       update_skater_elo_ratings_for_five_minutes(max_min=5, max_count=10)
