@@ -1,8 +1,12 @@
 name: timeseries-elo-ratings-against-latest
 
 on:
-  schedule:
-    - cron:  '23 */6 * * *'
+  # Triggers the workflow on push or pull request events but only for the main branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
 
 defaults:
   run:
