@@ -106,10 +106,8 @@ def update_skater_elo_ratings_once(category='univariate-k_',data_source=random_r
             print("Error while deleting file : ", filePath)
 
     pos = 1
-    for rating, name, count,active, traceback in sorted(list(zip(elo['rating'],elo['name'],elo['count'],elo['active'],elo['traceback'])),reverse=True):
-        package = name.split('_')[0]
-        if package not in ['fbprophet', 'pmdarima', 'pydlm', 'flux', 'divinity']:
-            package = 'timemachines'
+    for rating, name, count,active, traceback, pypi, scnds in sorted(list(zip(elo['rating'],elo['name'],elo['count'],elo['active'],elo['traceback'], elo['pypi'], elo['seconds'])),reverse=True):
+
         SCORE_FILE = LEADERBOARD_DIR + os.path.sep +str(pos).zfill(3)+'-'+str(int(rating)).zfill(4)+'-'+name+'-'+str(count)
         pos+=1
         if not active:
@@ -118,8 +116,7 @@ def update_skater_elo_ratings_once(category='univariate-k_',data_source=random_r
             SCORE_FILE += '_FAILING'
         SCORE_FILE+='.json'
         with open(SCORE_FILE, 'wt') as fp:
-            json.dump(obj={'name':name,'package':package,'url':'https://pypi.org/project/'+package,
-                           'traceback':traceback}, fp=fp)
+            json.dump(obj={'name':name,'pypi':pypi,'seconds':scnds,'traceback':traceback}, fp=fp)
 
 
 if __name__=='__main__':
