@@ -119,6 +119,4 @@ def update_skater_elo_ratings_once(category='univariate-k_',data_source=random_r
 
 
 if __name__=='__main__':
-       import timemachines
-       print('Using timemachines '+str(timemachines.__version__))
        update_skater_elo_ratings_for_five_minutes()
