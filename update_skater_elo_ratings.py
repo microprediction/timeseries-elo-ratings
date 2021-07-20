@@ -115,7 +115,7 @@ def update_skater_elo_ratings_once(category='univariate-k_',data_source=random_r
             SCORE_FILE += '_FAILING'
         SCORE_FILE+='.json'
         with open(SCORE_FILE, 'wt') as fp:
-            json.dump(obj={'name':name,'pypi':pypi,'seconds':scnds,'traceback':traceback}, fp=fp)
+            json.dump(obj={'name':name,'pypi':pypi,'seconds':scnds,'traceback':traceback,'rating':rating}, fp=fp)
 
 
 if __name__=='__main__':
