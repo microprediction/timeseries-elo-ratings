@@ -110,7 +110,7 @@ def get_index_html_str(json_names):
 </html>"""
 
 if __name__ == '__main__':
-    if False:
+    if True:
         jsons = load_all_games()
 
         HTML_DIR = os.path.join(THIS_PATH, "docs", "html_leaderboards")
@@ -122,9 +122,12 @@ if __name__ == '__main__':
 
         navbar = get_html_navbar(jsons.keys())
         for file, data in jsons.items():
-            file_html = file.replace(".json", ".html")
-            with open(os.path.join(HTML_DIR, file_html), "w") as f:
-                if file == "overall.json":
-                    f.write(get_overall_html_str(file, data, navbar))
-                else:
-                    f.write(get_html_str(file, data, navbar))
+            try:
+                file_html = file.replace(".json", ".html")
+                with open(os.path.join(HTML_DIR, file_html), "w") as f:
+                    if file == "overall.json":
+                        f.write(get_overall_html_str(file, data, navbar))
+                    else:
+                        f.write(get_html_str(file, data, navbar))
+            except:
+                print('Failed for '+file+ ' as the data is probably old school')
