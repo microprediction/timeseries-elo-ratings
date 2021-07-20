@@ -43,7 +43,7 @@ def update_skater_elo_ratings_for_five_minutes():
     the_start_time = time.time()
     elapsed = 0
     count = 0
-    while elapsed<1*60 and count<3:
+    while elapsed<1*60 and count<10:
         import random
         category = random.choice(['residual-k_','univariate-k_'])
         update_skater_elo_ratings_once(category=category,data_source=random_residual_data)
