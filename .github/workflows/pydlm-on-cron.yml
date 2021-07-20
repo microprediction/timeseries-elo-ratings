@@ -2,7 +2,7 @@ name: pydlm-on-cron
 
 on:
   schedule:
-    - cron:  '15 */5 * * *'
+    - cron:  3 */5 * * *'
 
 defaults:
   run:
