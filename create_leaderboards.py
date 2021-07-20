@@ -110,20 +110,21 @@ def get_index_html_str(json_names):
 </html>"""
 
 if __name__ == '__main__':
-    jsons = load_all_games()
+    if False:
+        jsons = load_all_games()
 
-    HTML_DIR = os.path.join(THIS_PATH, "docs", "html_leaderboards")
-    if not os.path.exists(HTML_DIR):
-        os.mkdir(HTML_DIR)
+        HTML_DIR = os.path.join(THIS_PATH, "docs", "html_leaderboards")
+        if not os.path.exists(HTML_DIR):
+            os.mkdir(HTML_DIR)
 
-    with open(os.path.join(THIS_PATH, "docs", "index.html"), "w") as f:
-        f.write(get_index_html_str(jsons.keys()))
+        with open(os.path.join(THIS_PATH, "docs", "index.html"), "w") as f:
+            f.write(get_index_html_str(jsons.keys()))
 
-    navbar = get_html_navbar(jsons.keys())
-    for file, data in jsons.items():
-        file_html = file.replace(".json", ".html")
-        with open(os.path.join(HTML_DIR, file_html), "w") as f:
-            if file == "overall.json":
-                f.write(get_overall_html_str(file, data, navbar))
-            else:
-                f.write(get_html_str(file, data, navbar))
+        navbar = get_html_navbar(jsons.keys())
+        for file, data in jsons.items():
+            file_html = file.replace(".json", ".html")
+            with open(os.path.join(HTML_DIR, file_html), "w") as f:
+                if file == "overall.json":
+                    f.write(get_overall_html_str(file, data, navbar))
+                else:
+                    f.write(get_html_str(file, data, navbar))
