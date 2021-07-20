@@ -28,6 +28,9 @@ def get_html_table_rows(data):
     for name, rating, count, active, pypi, scnds in zip(data["name"], data["rating"], data["count"], data["active"], data["pypi"], data['seconds']):
         pypi_name = pypi.split('/project/')[-1]
         pypi_url = '<a href="'+pypi+'">'+pypy_name+'</a>'
+        tm_url = '<a href="https://github.com/microprediction/timemachines">timemachines</a>'
+        if 'timemachines' not in pypi_url:
+            pypi_url = pypi_url + ' , '+tm_url
         data_dict[name] = (rating,count, active, pypi_url, scnds )
 
     data_dict = dict(sorted(data_dict.items(), key=lambda item: item[1], reverse=True))
