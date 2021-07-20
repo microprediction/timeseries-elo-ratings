@@ -1,8 +1,8 @@
-name: timeseries-elo-ratings-fast
+name: fast-on-cron
 
 on:
   schedule:
-    - cron:  '23 */6 * * *'
+    - cron:  '23 */1 * * *'
 
 defaults:
   run:
