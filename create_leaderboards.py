@@ -64,7 +64,7 @@ def get_html_str(file, data, navbar):
 <body>
     <div class="left">{navbar}</div>
     <div class="right">
-        <h1>Ongoing Performance Comparison of Python Time-Series Forecasting Techniques</h1>
+        <h1>Ongoing Performance Comparison of Python Univariate Time-Series Forecasting Packages</h1>
 Ratings are produced by <a href="https://github.com/microprediction/timeseries-elo-ratings">timeseries-elo-ratings</a> and 
 based on k-step ahead prediction duels using <a href="https://www.microprediction.org/browse_streams.html">live time series data</a> taken from 
 <a href="www.microprediction.com">www.microprediction.com</a>. 
