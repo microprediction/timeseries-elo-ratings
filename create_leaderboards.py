@@ -122,12 +122,9 @@ if __name__ == '__main__':
 
         navbar = get_html_navbar(jsons.keys())
         for file, data in jsons.items():
-            try:
-                file_html = file.replace(".json", ".html")
-                with open(os.path.join(HTML_DIR, file_html), "w") as f:
-                    if file == "overall.json":
-                        f.write(get_overall_html_str(file, data, navbar))
-                    else:
-                        f.write(get_html_str(file, data, navbar))
-            except:
-                print('Failed for '+file+ ' as the data is probably old school')
+            file_html = file.replace(".json", ".html")
+            with open(os.path.join(HTML_DIR, file_html), "w") as f:
+                if file == "overall.json":
+                    f.write(get_overall_html_str(file, data, navbar))
+                else:
+                    f.write(get_html_str(file, data, navbar))
