@@ -122,23 +122,62 @@ def get_index_html_str(json_names):
 </body>
 </html>"""
 
+
+def add_overall_json(json_lbs):
+    from momentum.objects import RunningVariance
+    all_names_set = set()
+    for lb_name, lb_data in json_lbs.items():
+        for nm in lb_data['name']:
+            all_names_set.add(nm)
+    all_names = list(all_names_set)
+    all_elo = dict([ (nm, RunningVariance()) for nm in all_names ])
+    all_seconds = dict([(nm, RunningVariance()) for nm in all_names])
+    all_pypi = dict([(nm, '') for nm in all_names])
+    all_counts = dict([(nm,0) for nm in all_names])
+    all_active = dict([(nm,False) for nm in all_names])
+    for lb_name, lb_data in json_lbs.items():
+        for nm,rtg,cnt,snds,url,act in zip( lb_data['name'],lb_data['rating'],lb_data['count'],lb_data['seconds'],lb_data['pypi'],lb_data['active'] ):
+            if cnt>=10:
+                all_elo[nm].update(value=rtg)
+                all_seconds[nm].update(value=snds)
+                all_pypi[nm] = url
+                all_counts[nm] += cnt
+                all_active[nm] = all_active[nm] or act
+
+    overall = {
+            'name':all_names,
+            'rating':[all_elo[nm].mean for nm in all_names],
+            'count':[all_counts[nm] for nm in all_names],
+            'seconds':[all_seconds[nm].mean for nm in all_names],
+            'active':[True for _ in all_names],
+            'pypi':[all_pypi[nm] for nm in all_names]
+    }
+    json_lbs['overall.json'] = overall
+    overall_fast = dict( [ (ky,[v for v,sc in zip(vl, overall['seconds']) if 0<sc<1 ]) for ky, vl in overall.items() ] )
+    json_lbs['fastest.json'] = overall_fast
+    overall_moderate = dict(
+        [(ky, [v for v, sc in zip(vl, overall['seconds']) if 0 < sc < 30]) for ky, vl in overall.items()])
+    json_lbs['faster.json'] = overall_moderate
+
+    return json_lbs
+
+
 if __name__ == '__main__':
     if True:
-        jsons = load_all_games()
+        json_lbs = load_all_games()
+
+        json_lbs = add_overall_json(json_lbs=json_lbs)
 
         HTML_DIR = os.path.join(THIS_PATH, "docs", "html_leaderboards")
         if not os.path.exists(HTML_DIR):
             os.mkdir(HTML_DIR)
 
         with open(os.path.join(THIS_PATH, "docs", "index.html"), "w") as f:
-            f.write(get_index_html_str(jsons.keys()))
+            f.write(get_index_html_str(json_lbs.keys()))
 
-        navbar = get_html_navbar(jsons.keys())
-        for file, data in jsons.items():
+        navbar = get_html_navbar(json_lbs.keys())
+        for file, data in json_lbs.items():
             file_html = file.replace(".json", ".html")
             with open(os.path.join(HTML_DIR, file_html), "w") as f:
-                if file == "overall.json":
-                    f.write(get_overall_html_str(file, data, navbar))
-                else:
-                    f.write(get_html_str(file, data, navbar))
+                 f.write(get_html_str(file, data, navbar))
 

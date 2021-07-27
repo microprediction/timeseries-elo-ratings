@@ -131,6 +131,6 @@ def running_locally():
 
 if __name__=='__main__':
     if running_locally():
-       update_skater_elo_ratings_for_five_minutes(max_min=10000, max_count=10000000)
+       update_skater_elo_ratings_for_five_minutes(max_min=100000, max_count=200000000)
     else:
        update_skater_elo_ratings_for_five_minutes(max_min=5, max_count=10)
