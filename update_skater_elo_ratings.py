@@ -133,4 +133,6 @@ if __name__=='__main__':
     if running_locally():
        update_skater_elo_ratings_for_five_minutes(max_min=100000, max_count=200000000)
     else:
-       update_skater_elo_ratings_for_five_minutes(max_min=5, max_count=10)
+       if False:
+          # disabled while ratings are bootstrapped locally (new models included)
+          update_skater_elo_ratings_for_five_minutes(max_min=5, max_count=10)
