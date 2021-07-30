@@ -1,4 +1,4 @@
-# timeseries-elo-ratings
+# Time-series Model Recommender
 
 This package (ahem usually)  generates [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) for time-series forecasting packages as a by-product of testing the same.
 
