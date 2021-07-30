@@ -1,16 +1,15 @@
-# timeseries-elo-ratings
+# Time-series Model Recommender
 
-This package (ahem usually)  generates [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) for time-series forecasting packages as a by-product of testing the same.
+This package generates [Elo ratings](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html) for time-series forecasting packages as a by-product of testing the same.
 
-- [html leaderboards](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_003.html)
-- [json leaderboards](https://github.com/microprediction/timeseries-elo-ratings/tree/main/leaderboards_json)
+### Human readable [html leaderboards](https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_008.html)
 
-Uses the [TimeMachines](https://github.com/microprediction/timemachines) package to compute Elos.
+### Recommender [colab notebook](https://github.com/microprediction/timeseries-elo-ratings/blob/main/time_series_recommendations.ipynb)
 
-![](https://i.imgur.com/PB1c2w6.png)
+### Machine readable [json leaderboards](https://github.com/microprediction/timeseries-elo-ratings/tree/main/leaderboards_json)
+
+These use the [TimeMachines](https://github.com/microprediction/timemachines) package.
+
+![](https://i.imgur.com/EgvrWtH.png)
 
 
-
-
-
-![](https://i.imgur.com/G9NQWJj.gifv)
