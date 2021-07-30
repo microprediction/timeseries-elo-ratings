@@ -7,10 +7,6 @@ This package (ahem usually)  generates [Elo ratings](https://microprediction.git
 
 Uses the [TimeMachines](https://github.com/microprediction/timemachines) package to compute Elos.
 
-![](https://i.imgur.com/PB1c2w6.png)
+![](https://i.imgur.com/EgvrWtH.png)
 
 
-
-
-
-![](https://i.imgur.com/G9NQWJj.gifv)
