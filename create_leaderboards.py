@@ -68,30 +68,25 @@ def get_html_str(file, data, navbar):
 <body>
     <div class="left">{navbar}</div>
     <div class="right">
-        <h1>Accuracy of Python Time-Series Forecasting Packages</h1>
-The Elo Ratings in this table are produced transparently by <a href="https://github.com/microprediction/timeseries-elo-ratings">timeseries-elo-ratings</a> and 
-based on k-step ahead prediction duels using <a href="https://www.microprediction.org/browse_streams.html">live time series data</a> taken from 
-<a href="www.microprediction.com">www.microprediction.com</a>. Since there are many ways to use
-those packages the title is somewhat misleading, even if we have included algorithms with factory default settings from packages claiming that little or no user estimation
-should be required. 
+        <h1>Accuracy and Speed of Some Short Term Automated Time-Series Forecasting Approaches (Python Packages only)</h1>
+The Elo Ratings in this table are produced transparently in the repo <a href="https://github.com/microprediction/timeseries-elo-ratings">timeseries-elo-ratings</a> and 
+based on k-step ahead prediction duels using <a href="https://www.microprediction.org/browse_streams.html">live time series data</a>. See <a href="https://github.com/microprediction/timeseries-elo-ratings/blob/main/METHODOLOGY.md">METHODOLOGY.md</a> for 
+interpretation of Elo ratings. The table named <a href="https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_002.html">univariate-k_002</a> refers to 2-step ahead prediction, 
+and so forth. Residual leaderboards use so-called z-streams (as explained in <a href="https://www.linkedin.com/pulse/short-introduction-z-streams-peter-cotton-phd/">An Introduction to Z-Streams</a>). 
 <p>
-All algorithms utilized here can be found in the <a href="https://github.com/microprediction/timemachines">TimeMachines</a> Python package. However, as indicated
+There is some motivation in the blog post <a href="https://www.microprediction.com/blog/fast">Fast Python Time-Series Forecasting</a>. All algorithms
+utilized here can be called the same way using the <a href="https://github.com/microprediction/timemachines">TimeMachines</a> Python package. However, as indicated
 in the table, some of
-these draw an important part of their functionality (if not all) from other packages such as Facebook Prophet, Statsmodels TSA, Flux, PmdArima, Uber Orbit and <a href="https://github.com/microprediction/timemachines/tree/main/timemachines/skaters">more</a>. If you have a suggestion
-please file a <a href="https://github.com/microprediction/timemachines/issues">issue<a/> or, even better, add a 
-<a href="https://github.com/microprediction/timemachines/tree/main/timemachines/skaters">skater</a> and make a pull request. There is 
-a <a href="https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md">guide for contributors</a> willing to make autonomous univariate
-time series prediction functions, and lots of suggestions in 
-the listing of <a href="https://www.microprediction.com/blog/popular-timeseries-packages">popular time-series packages</a>. 
-        <p>
-Wins and losses (and the occasional draw) are based on RMSE using 50 data points. Prior to that 400 data points are provided to warm up the models. The table
-named <a href="https://microprediction.github.io/timeseries-elo-ratings/html_leaderboards/univariate-k_002.html">univariate-k_002</a> refers to 2-step ahead prediction, 
-and so forth. Residual leaderboards use streams of data that represent the residuals of competitive community prediction
-(as explained in <a href="https://www.linkedin.com/pulse/short-introduction-z-streams-peter-cotton-phd/">An Introduction to Z-Streams</a>). 
+these draw an important part of their functionality (if not all) from other packages such as Facebook Prophet,
+Statsmodels TSA, Flux, PmdArima, Uber Orbit and <a href="https://github.com/microprediction/timemachines/tree/main/timemachines/skaters">more</a>. Take relative performance
+with with a grain of salt, since many packages don't intend completely autonomous use and some are aimed at longer term seasonal forecasts. If you have a suggestion for a package or technique that should be included, please file an <a href="https://github.com/microprediction/timemachines/issues">issue<a/> or, even better, add a 
+<a href="https://github.com/microprediction/timemachines/tree/main/timemachines/skaters">skater</a> and make a pull request. There is
+a <a href="https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md">guide for contributors</a> and a long list of <a href="https://www.microprediction.com/blog/popular-timeseries-packages">popular time-series packages</a>. 
 <p>
-Some of these methods are used in real-time to predict live data. That live data can in turn be published by anyone. See the <a href="https://github.com/microprediction/microprediction/tree/master/crawler_examples">example crawlers</a> folder
-for examples of live algorithms. See the <a href="https://www.microprediction.com/knowledge-center">knowledge center</a> or <a href="https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md">contributor guide</a> for instructions
-on publishing live data that can influence these ratings. Further motivation for the project is explained at <a href="https://www.microprediction.com/">microprediction.com</a>. 
+Some of these methods are used in real-time to provide free prediction to anyone who publishes public data using 
+a <a href="http://api.microprediction.org/">community API</a> explained at <a href="https://www.microprediction.com">microprediction.com</a>. See the <a href="https://github.com/microprediction/microprediction/tree/master/crawler_examples">example crawlers</a> folder
+for examples of algorithms calling the timemachines package. See the <a href="https://www.microprediction.com/knowledge-center">knowledge center</a> or <a href="https://github.com/microprediction/timemachines/blob/main/CONTRIBUTE.md">contributor guide</a> for
+instructions on publishing live data that can influence these ratings. 
         <p>
         <table class="default-table">
             {get_html_table_rows(data)}
@@ -164,9 +159,9 @@ def add_overall_json(json_lbs):
 
 if __name__ == '__main__':
     if True:
-        json_lbs = load_all_games()
-
-        json_lbs = add_overall_json(json_lbs=json_lbs)
+        unsorted_json_lbs = load_all_games()
+        unsorted_json_lbs = add_overall_json(json_lbs=unsorted_json_lbs)
+        json_lbs = {k: v for k, v in sorted(unsorted_json_lbs.items(), key=lambda item: item[0])}
 
         HTML_DIR = os.path.join(THIS_PATH, "docs", "html_leaderboards")
         if not os.path.exists(HTML_DIR):
