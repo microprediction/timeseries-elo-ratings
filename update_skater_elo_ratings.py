@@ -1,4 +1,3 @@
-from timemachines.skatertools.comparison.skaterelo import skater_elo_update
 try:
     from timemachines.skatertools.data.live import random_regular_data, random_residual_data
 except ImportError:
@@ -60,6 +59,8 @@ def update_skater_elo_ratings_for_five_minutes(max_min=5, max_count=10):
 
 
 def update_skater_elo_ratings_once(category='univariate-k_',data_source=random_regular_data):
+    from timemachines.skatertools.comparison.skaterelo import skater_elo_update, skater_elo_multi_update
+
     k = random.choice([1,1,1,1,2,2,2,3,3,5,8,13,21,34])
     ELO_PATH = os.path.dirname(os.path.realpath(__file__))+os.path.sep+'ratings'
     LEADERBOARD_PATH = os.path.dirname(os.path.realpath(__file__)) + os.path.sep + 'leaderboards_json'
@@ -84,7 +85,7 @@ def update_skater_elo_ratings_once(category='univariate-k_',data_source=random_r
     elo = ensure_ratings_are_clean(elo, index_key='name')
 
     # Update elo skater_elo_ratings
-    elo = skater_elo_update(elo=elo,k=k,data_source=data_source)
+    elo = skater_elo_multi_update(elo=elo,k=k,data_source=data_source)
     if False:
         pprint(sorted(list(zip(elo['rating'],elo['name'])))[-3:])
     print('',flush=True)
