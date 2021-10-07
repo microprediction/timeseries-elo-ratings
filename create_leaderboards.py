@@ -13,8 +13,6 @@ def load_all_games():
             ret = json.load(f)
         return ret
 
-    games = list()
-    i = 0
     leaderboard_jsons = dict(
         (file, load_json(file)) for file in os.listdir(ELO_PATH) if os.path.isfile(
             os.path.join(ELO_PATH, file)
