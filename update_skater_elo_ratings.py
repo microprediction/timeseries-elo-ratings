@@ -14,7 +14,7 @@ CAN_BLOW_AWAY = False
 
 
 ELIMINATE = ['constant_skater','darts_ARIMA_skater','darts_AutoARIMA_skater','darts_FFT_skater',
-             'darts_FourTheta_skater','darts_Prophet_skater']
+             'darts_FourTheta_skater','darts_Prophet_skater','darts_ExponentialSmoothing_skater']
 AVOID_KEYS = ['evaluator']
 
 
