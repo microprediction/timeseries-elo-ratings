@@ -60,7 +60,7 @@ def update_skater_elo_ratings_for_five_minutes(max_min=5, max_count=10):
 
 
 def update_skater_elo_ratings_once(category='univariate-k_',data_source=random_regular_data):
-    from timemachines.skatertools.comparison.skaterelo import skater_elo_update, skater_elo_multi_update
+    from timemachines.skatertools.comparison.skaterelo import skater_elo_multi_update
 
     k = random.choice([1,1,1,1,2,2,2,3,3,5,8,13,21,34])
     ELO_PATH = os.path.dirname(os.path.realpath(__file__))+os.path.sep+'ratings'
