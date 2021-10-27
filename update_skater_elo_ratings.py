@@ -1,5 +1,5 @@
 try:
-    from timemachines.skatertools.data.live import random_regular_data, random_residual_data
+    from timemachines.skatertools.data.live import random_residual_data, random_elo_data
 except ImportError:
     raise('pip install microprediction')
 
@@ -16,6 +16,8 @@ CAN_BLOW_AWAY = False
 ELIMINATE = ['constant_skater','darts_ARIMA_skater','darts_AutoARIMA_skater','darts_FFT_skater',
              'darts_FourTheta_skater','darts_Prophet_skater','darts_ExponentialSmoothing_skater']
 AVOID_KEYS = ['evaluator']
+
+ALWAYS_SKATERS = ['suc_tsa_p2_d0_q1','tsa_p2_d0_q1','suc_quick_aggressive_ema_ensemble','quick_aggressive_ema_ensemble']
 
 
 def ensure_ratings_are_clean(d, index_key='name', avoid_keys=None):
@@ -40,17 +42,15 @@ def ensure_ratings_are_clean(d, index_key='name', avoid_keys=None):
                 raise ValueError('Ratings were corrupted, somehow')
     return d
 
+import random
 
 
-
-def update_skater_elo_ratings_for_five_minutes(max_min=5, max_count=10):
+def update_skater_elo_ratings_for_five_minutes_or_more(max_min=5, max_count=10):
     the_start_time = time.time()
     elapsed = 0
     count = 0
     while elapsed<max_min*60 and count<max_count:
-        import random
-        category = random.choice(['residual-k_','univariate-k_'])
-        update_skater_elo_ratings_once(category=category,data_source=random_residual_data)
+        update_skater_elo_ratings_once()
         elapsed = time.time()-the_start_time
         if False:
             print('Elapsed= '+str(elapsed))
@@ -59,10 +59,18 @@ def update_skater_elo_ratings_for_five_minutes(max_min=5, max_count=10):
     print('Done updating Elo ratings')   
 
 
-def update_skater_elo_ratings_once(category='univariate-k_',data_source=random_regular_data):
+def update_skater_elo_ratings_once(regular_data_source=random_elo_data, residual_data_source=random_residual_data):
     from timemachines.skatertools.comparison.skaterelo import skater_elo_multi_update
 
+    category = random.choice(['residual-k_', 'univariate-k_'])
+    if 'residual' in category:
+        data_source = residual_data_source
+    else:
+        data_source = regular_data_source
+
+    print(category)
     k = random.choice([1,1,1,1,2,2,2,3,3,5,8,13,21,34])
+    print('k='+str(k))
     ELO_PATH = os.path.dirname(os.path.realpath(__file__))+os.path.sep+'ratings'
     LEADERBOARD_PATH = os.path.dirname(os.path.realpath(__file__)) + os.path.sep + 'leaderboards_json'
 
@@ -85,8 +93,7 @@ def update_skater_elo_ratings_once(category='univariate-k_',data_source=random_r
     # Dedup
     elo = ensure_ratings_are_clean(elo, index_key='name')
 
-    # Update elo skater_elo_ratings
-    elo = skater_elo_multi_update(elo=elo,k=k,data_source=data_source)
+    elo = skater_elo_multi_update(elo=elo,k=k,data_source=data_source, always_skaters=ALWAYS_SKATERS)
     if False:
         pprint(sorted(list(zip(elo['rating'],elo['name'])))[-3:])
     print('',flush=True)
@@ -133,7 +140,7 @@ def running_locally():
 
 if __name__=='__main__':
     if running_locally():
-       update_skater_elo_ratings_for_five_minutes(max_min=100000, max_count=200000000)
+       update_skater_elo_ratings_for_five_minutes_or_more(max_min=100000, max_count=200000000)
     else:
        if False:
           # disabled while ratings are bootstrapped locally (new models included)
