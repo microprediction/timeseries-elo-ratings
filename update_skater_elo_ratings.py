@@ -1,5 +1,6 @@
 try:
     from timemachines.skatertools.data.live import random_residual_data, random_elo_data
+    from timemachines.skatertools.data.special import random_special_data
 except ImportError:
     raise('pip install microprediction')
 
@@ -17,7 +18,7 @@ ELIMINATE = ['constant_skater','darts_ARIMA_skater','darts_AutoARIMA_skater','da
              'darts_FourTheta_skater','darts_Prophet_skater','darts_ExponentialSmoothing_skater']
 AVOID_KEYS = ['evaluator']
 
-ALWAYS_SKATERS = ['suc_tsa_p2_d0_q1','tsa_p2_d0_q1','suc_quick_aggressive_ema_ensemble','quick_aggressive_ema_ensemble']
+ALWAYS_SKATERS = ['tsa_p2_d0_q1','quick_aggressive_ema_ensemble']
 
 
 def ensure_ratings_are_clean(d, index_key='name', avoid_keys=None):
@@ -59,12 +60,14 @@ def update_skater_elo_ratings_for_five_minutes_or_more(max_min=5, max_count=10):
     print('Done updating Elo ratings')   
 
 
-def update_skater_elo_ratings_once(regular_data_source=random_elo_data, residual_data_source=random_residual_data):
+def update_skater_elo_ratings_once(regular_data_source=random_elo_data, residual_data_source=random_residual_data, special_data_source=random_special_data):
     from timemachines.skatertools.comparison.skaterelo import skater_elo_multi_update
 
-    category = random.choice(['residual-k_', 'univariate-k_'])
+    category = random.choice(['residual-k_', 'univariate-k_','special-k_'])
     if 'residual' in category:
         data_source = residual_data_source
+    elif 'special' in category:
+        data_source = special_data_source
     else:
         data_source = regular_data_source
 
