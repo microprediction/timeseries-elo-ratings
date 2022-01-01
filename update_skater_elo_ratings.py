@@ -1,6 +1,6 @@
 try:
     from timemachines.skatertools.data.live import random_residual_data, random_elo_data
-    from timemachines.skatertools.data.special import random_special_data
+    from timemachines.skatertools.data.long import random_long_data
 except ImportError:
     raise('pip install microprediction')
 
@@ -18,7 +18,7 @@ ELIMINATE = ['constant_skater','darts_ARIMA_skater','darts_AutoARIMA_skater','da
              'darts_FourTheta_skater','darts_Prophet_skater','darts_ExponentialSmoothing_skater']
 AVOID_KEYS = ['evaluator']
 
-ALWAYS_SKATERS = ['tsa_p2_d0_q1','quick_aggressive_ema_ensemble']
+ALWAYS_SKATERS = ['tsa_p2_d0_q1','quick_aggressive_ema_ensemble','thinking_slow_and_fast']
 
 
 def ensure_ratings_are_clean(d, index_key='name', avoid_keys=None):
@@ -60,10 +60,10 @@ def update_skater_elo_ratings_for_five_minutes_or_more(max_min=5, max_count=10):
     print('Done updating Elo ratings')   
 
 
-def update_skater_elo_ratings_once(regular_data_source=random_elo_data, residual_data_source=random_residual_data, special_data_source=random_special_data):
+def update_skater_elo_ratings_once(regular_data_source=random_elo_data, residual_data_source=random_residual_data, special_data_source=random_long_data):
     from timemachines.skatertools.comparison.skaterelo import skater_elo_multi_update
 
-    category = random.choice(['residual-k_', 'univariate-k_','special-k_'])
+    category = random.choice(['residual-k_', 'univariate-k_','special-k_','special-k_','special-k_','special-k_','special-k_'])
     if 'residual' in category:
         data_source = residual_data_source
     elif 'special' in category:
@@ -88,13 +88,14 @@ def update_skater_elo_ratings_once(regular_data_source=random_elo_data, residual
         with open(ELO_FILE,'rt') as fp:
             elo = json.load(fp)
     except:
-        if CAN_BLOW_AWAY:
+        if CAN_BLOW_AWAY or 'special' in category:
             elo = {}
         else:
             raise RuntimeError()
 
     # Dedup
-    elo = ensure_ratings_are_clean(elo, index_key='name')
+    if True:
+        elo = ensure_ratings_are_clean(elo, index_key='name')
 
     elo = skater_elo_multi_update(elo=elo,k=k,data_source=data_source, always_skaters=ALWAYS_SKATERS)
     if False:
